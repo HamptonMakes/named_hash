@@ -1,4 +1,4 @@
-
+require_relative './lib/named_hash'
 
 value = _{{Hi: "mom"}}
 
