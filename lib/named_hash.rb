@@ -1,7 +1,9 @@
 class NamedHash < Hash
-  def initialize(hash)
-    super(nil)
-    merge(hash)
+  def initialize(hash = nil)
+    super
+    if hash
+      merge(hash)
+    end
   end
 
   def set(key, value)
@@ -25,22 +27,20 @@ class NamedHash < Hash
     end
   end
 
+  def to_named_hash
+    self
+  end
+  alias :~ :to_named_hash
+
+  class InvalidKeyError < StandardError
+    def initialize
+      super("Only Strings and Symbols are Valid")
+    end
+  end
+
   private
 
   def check_key_type(key)
-    throw "Only Strings and Keys are Valid" unless (key.is_a?(String) || key.is_a?(Symbol))
-  end
-end
-
-def _(value = nil, &block)
-  if value == nil && block_given?
-    value = block.call
-    puts value
-  end
-
-  return self if value.is_a? NamedHash
-
-  if value.is_a? Hash
-    return NamedHash.new(value)
+    raise InvalidKeyError unless (key.is_a?(String) || key.is_a?(Symbol))
   end
 end

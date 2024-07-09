@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe "Named Hash Method Integration" do
-  def living_legend(arg1, options={})
-    options = _{options}
+  def living_legend(arg1, options = ~{})
+    options = ~options
 
     options[:living_legend] = true
     options
