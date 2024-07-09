@@ -18,9 +18,10 @@ GEM
 
 PLATFORMS
   arm64-darwin-20
+  arm64-darwin-23
 
 DEPENDENCIES
   rspec
 
 BUNDLED WITH
-   2.2.5
+   2.5.15
