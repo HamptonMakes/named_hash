@@ -1,5 +1,7 @@
 require_relative './lib/named_hash'
 
+blank = ~{}
+
 config = ~{
   "name": "Hampton",
   deep: {
@@ -26,6 +28,7 @@ config["deep"]["value"] #null
 config["deep"][1982] = true #true
 
 # You can do a deep coercion by using ~~ either at hash-creation or calling on an existing NamedHash
+# TODO: NOT YET IMPLEMENTED!!!!!!
 config = ~~config
 
 config["deep"][:value] #123
