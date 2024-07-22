@@ -58,5 +58,14 @@ RSpec.describe NamedHash do
         expect(subject[:first_name]).to eq("Michael")
       end
     end
+    
+    describe 'missing keys' do
+      it 'should return null for missing keys of all types' do
+        empty = ~{}
+        expect(empty[:values]).to eq(nil)
+        expect(empty["whatever"]).to eq(nil)
+        expect(empty[:weekly_sales]).to eq(nil)
+      end
+    end
   end
 end
