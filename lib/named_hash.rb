@@ -21,7 +21,7 @@ class NamedHash < Hash
 
   def [](key)
     check_key_type(key)
-    super(key.to_s)
+    super[key.to_s]
   end
 
   def merge(hash)
