@@ -1,3 +1,5 @@
+require_relative 'hash'
+
 class NamedHash < Hash
   def initialize(hash = nil)
     super
@@ -13,6 +15,7 @@ class NamedHash < Hash
     end
     native_set(key.to_s, value)
   end
+
   alias_method :native_set, :[]=
   alias_method :[]=, :set
 
@@ -30,6 +33,7 @@ class NamedHash < Hash
   def to_named_hash
     self
   end
+
   alias :~ :to_named_hash
 
   class InvalidKeyError < StandardError
