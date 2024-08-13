@@ -1,0 +1,5 @@
+0.2 (2024-08-13)
+================
+- No longer error when trying to GET an invalid key type - (@HamptonMakes)
+- Fix bug where default key was being set inappropriately - (@HamptonMakes)
+- Adjust tests to work with new API - (@HamptonMakes)

@@ -2,7 +2,7 @@ require_relative 'hash'
 
 class NamedHash < Hash
   def initialize(hash = nil)
-    super
+    super()
     if hash
       merge(hash)
     end
@@ -19,10 +19,12 @@ class NamedHash < Hash
   alias_method :native_set, :[]=
   alias_method :[]=, :set
 
-  def [](key)
-    check_key_type(key)
-    super[key.to_s]
+  def get(key)
+    native_get(key.to_s)
   end
+
+  alias_method :native_get, :[]
+  alias_method :[], :get
 
   def merge(hash)
     hash.each do |key, value|

@@ -8,9 +8,9 @@ RSpec.describe NamedHash do
       expect(subject[:test]).to be_nil
     end
 
-    it "should error on invalid key types" do
+    it "should error on setting invalid key types" do
       expect {
-        subject[123]
+        subject[123] = "test"
       }.to raise_error NamedHash::InvalidKeyError
     end
 
@@ -27,21 +27,32 @@ RSpec.describe NamedHash do
     end
   end
 
-  describe 'initialized with data' do
+  describe 'initialized shallow with data' do
     subject { NamedHash.new(first_name: "Hampton", "last_name" => "Lintorn-Catlin", location: {
       city: "New Orleans",
       "state": "Louisiana"
     }) }
 
-    it "should have data" do
-      expect(subject["first_name"]).to eq("Hampton")
-      expect(subject[:first_name]).to eq("Hampton")
-    end
+    describe "NamedHash#get" do
+      it "use either key type" do
+        expect(subject["first_name"]).to eq("Hampton")
+        expect(subject[:first_name]).to eq("Hampton")
 
-    it "should error on invalid key types" do
-      expect {
-        subject[123]
-      }.to raise_error NamedHash::InvalidKeyError
+        # Another ass-covering mutation check by just ensuring I can query again without mutations
+        expect(subject["first_name"]).to eq("Hampton")
+        expect(subject[:first_name]).to eq("Hampton")
+      end
+
+      it "should return sub-hashes" do
+        expect(subject["location"]).to be_a(Hash)
+        expect(subject[:location]).to be_a(Hash)
+      end
+
+      it "should return nil if it's an invalid key type" do
+        expect(subject[123]).to be_nil
+        # It might seem dumb, but doing it twice to ensure no mutations whatsoever
+        expect(subject[123]).to be_nil
+      end
     end
 
     describe "should overwrite existing keys" do
@@ -51,14 +62,13 @@ RSpec.describe NamedHash do
         expect(subject[:first_name]).to eq("Michael")
       end
 
-
       it "should do this with symbols" do
         subject[:first_name] = "Michael"
         expect(subject["first_name"]).to eq("Michael")
         expect(subject[:first_name]).to eq("Michael")
       end
     end
-    
+
     describe 'missing keys' do
       it 'should return null for missing keys of all types' do
         empty = ~{}
@@ -68,4 +78,6 @@ RSpec.describe NamedHash do
       end
     end
   end
+
+  describe 'NamedHash#fetch'
 end

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'named_hash'
-  s.version     = '0.1.1'
+  s.version     = '0.2'
   s.licenses    = ['MIT']
   s.summary     = "Hashes for People"
   s.description = "A new take on HashWithIndifferentAccess"
